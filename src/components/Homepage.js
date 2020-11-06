@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import './index.css';
 import TextField from '@material-ui/core/TextField';
+import TableDirectory from './Table';
+import FormDirectory from './Form';
 
 export default function Homepage() {
 
   return (
     <Fragment>
-      <form>
-      <TextField id="standard-search" label="Search field" type="search" />
-      </form>
+     <FormDirectory></FormDirectory>
+      <TableDirectory></TableDirectory>
     </Fragment>
   );
 
