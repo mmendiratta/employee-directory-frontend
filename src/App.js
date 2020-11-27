@@ -6,12 +6,13 @@ import { HashRouter, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <HashRouter basename="/">
-      <div>
-        <Route path="/login" component={LoginPage} />
-        <Route exact path="/home" component={Home} />
-      </div>
-    </HashRouter>
+    // <HashRouter basename="/home">
+    //   <div>
+    //     <Route path="/login" component={LoginPage} />
+    //     <Route path="/home" component={Home} />
+    //   </div>
+    // </HashRouter>
+    <Homepage></Homepage>
   );
 }
 

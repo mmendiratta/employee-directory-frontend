@@ -6,6 +6,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
+
+const api = 'http://employeedirectory-env.eba-jjpa4s2k.us-east-2.elasticbeanstalk.com/api/';
+
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 };
@@ -17,7 +20,15 @@ const rows = [
   createData("Justin Jefferson", 18, "WR", 67, "MN"),
   createData("Travis Kelce", 87, "TE", 49, "KC"),
 ];
+
+
 export default class TableDirectory extends React.Component {
+  // componentDidMount() {
+  //   fetch(api + 'employees')
+  //     .then(response => response.json())
+  //     .then(data => console.log(data));
+  // }
+
   render() {
     return (
       <TableContainer>
