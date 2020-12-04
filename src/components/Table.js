@@ -5,58 +5,68 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper } from "@material-ui/core";
 
+const api =
+  "http://employeedirectory-env.eba-jjpa4s2k.us-east-2.elasticbeanstalk.com/v1/";
+const local = "http://localhost:5000/v1/";
 
-const api = 'http://employeedirectory-env.eba-jjpa4s2k.us-east-2.elasticbeanstalk.com/api/';
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+const fetchData = async () => {
+  const response = await fetch(local + "directory", { method: "GET" });
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
 
-const rows = [
-  createData("Patrick Mahomeboy", 15, "QB", 24, "KC"),
-  createData("James Robinson", 32, "RB", 37, "JAX"),
-  createData("Zeke Elliot", 23, "RB", 24, "DAL"),
-  createData("Justin Jefferson", 18, "WR", 67, "MN"),
-  createData("Travis Kelce", 87, "TE", 49, "KC"),
-];
+export default function TableDirectory() {
+  const [employees, setEmployees] = React.useState([]);
+  const [isLoading, setLoading] = React.useState(false);
+  const classes = useStyles();
 
+  React.useEffect(() => {
+    const employeeData = async () => {
+      setLoading(true);
+      const people = await fetchData();
+      setEmployees(people);
+      setLoading(false);
+    };
+    employeeData();
+    console.log(employees);
+  }, []);
 
-export default class TableDirectory extends React.Component {
-  // componentDidMount() {
-  //   fetch(api + 'employees')
-  //     .then(response => response.json())
-  //     .then(data => console.log(data));
-  // }
-
-  render() {
-    return (
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Number</TableCell>
-              <TableCell align="right">Position</TableCell>
-              <TableCell align="right">Salary</TableCell>
-              <TableCell align="right">Team</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>First Name</TableCell>
+            <TableCell align="right">Last Name</TableCell>
+            <TableCell align="right">Position</TableCell>
+            <TableCell align="right">Salary</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {!isLoading &&
+            employees.length > 0 &&
+            employees.map((row) => (
+              <TableRow key={row.firstName}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.firstName}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.lastName}</TableCell>
+                <TableCell align="right">{row.position}</TableCell>
+                <TableCell align="right">{row.salary}</TableCell>
               </TableRow>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  }
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
