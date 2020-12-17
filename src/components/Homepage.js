@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import TableDirectory from './Table';
-import FormDirectory from './Form';
+import FormDirectory from './NewEmployeeForm';
 
 export default function Homepage() {
 

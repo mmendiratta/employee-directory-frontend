@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper } from "@material-ui/core";
 
 const api =
-  "http://employeedirectory-env.eba-jjpa4s2k.us-east-2.elasticbeanstalk.com/v1/";
+  "http://employeedirectory-env-1.eba-jjpa4s2k.us-east-2.elasticbeanstalk.com/v1/";
 const local = "http://localhost:5000/v1/";
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 const fetchData = async () => {
-  const response = await fetch(local + "directory", { method: "GET" });
+  const response = await fetch(api + "directory", { method: "GET" });
   const data = await response.json();
   console.log(data);
   return data;
